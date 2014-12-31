@@ -79,3 +79,25 @@ oauth_token_secret: 888888888888888888888888888888888888888888888
 
 # Content to insert after the issue, at the end ot the tweet
 after: #Communityit-BR
+
+
+
+[irc]
+
+# Enable or Disable IRC
+irc: false
+
+# IRC Server to connect
+server: irc.example.org
+
+# Port of the IRC server
+port: 6667
+
+# Nick to be used to notify
+nick: cachetnotify
+
+# Nicks and Channels to receive notifications, separated by comma
+receivers: nick1,nick2,#channel1,#channel2
+
+# Enable or disable SSL
+ssl: true

@@ -7,7 +7,6 @@ import os
 import ConfigParser
 import time
 import html2text
-import irc
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 # Reading Config Files
@@ -26,6 +25,10 @@ if config.getboolean('pushover', 'pushover'):
 # If Twitter is enabled
 if config.getboolean('twitter', 'twitter'):
 	from twython import Twython
+
+# If IRC is enabled
+if config.getboolean('irc', 'irc'):
+	from subprocess import call
 
 # Starting Block Scheduler
 sched = BlockingScheduler()
@@ -54,6 +57,8 @@ logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 # Create the cache file if this not exist
 if not os.path.exists(config.get('cachet', 'cache')):
 	open(config.get('cachet', 'cache'), 'w').close()
+
+root.info('Starting Application')
 
 try:
 	
@@ -90,7 +95,7 @@ try:
 				sys.exit(1)
 			
 			# Connected sucessfully
-			root.info('Conected to XMPP with %s'%con)
+			root.debug('Conected to XMPP with %s'%con)
 			
 			# Auth
 			auth=cl.auth(jid.getNode(),config.get('xmpp', 'password'),resource=jid.getResource())
@@ -101,15 +106,15 @@ try:
 				sys.exit(1)
 				
 			# Authenticated
-			root.info('Authenticated on the XMPP server using %s'%auth)
+			root.debug('Authenticated on the XMPP server using %s'%auth)
 
 			# Send message to receivers
 			for receiver in xmppreceivers:
 				id=cl.send(xmpp.protocol.Message(receiver,text))
-				root.info('First message sent to %s with id %s'%(receiver, id))
+				root.debug('First message sent to %s with id %s'%(receiver, id))
 				
 				id=cl.send(xmpp.protocol.Message(receiver,desc))
-				root.info('Second message sent to %s with id %s'%(receiver, id))
+				root.debug('Second message sent to %s with id %s'%(receiver, id))
 
 			# Some older servers will not send the message if you disconnect immediately after sending
 			time.sleep(1)
@@ -143,9 +148,22 @@ try:
 			
 			# Publish Tweet
 			twitter.update_status(status=text)
+			
+		# If IRC is enabled
+		if config.getboolean('irc','irc'):
+			
+			# Log this
+			root.debug('Sending IRC Notification')
+			
+			# Format of the message to send
+			desc="%s - %s"%(content, updated)
+			
+			# Call external IRC script to send ir message
+			call(['./irc-send.py', config.get('irc', 'server'), config.get('irc', 'port'), config.get('irc', 'nick'), config.get('irc', 'receivers'), '%s,%s'%(title, desc), config.get('irc', 'ssl')])
+			
 
 	# Function to check new feed itens
-	@sched.scheduled_job('interval', seconds=config.get('cachet','interval'), timezone=0)
+	@sched.scheduled_job('interval', seconds=config.getint('cachet','interval'), timezone=0)
 	def check():
 		feed = feedparser.parse(config.get('cachet', 'url'))
 		for item in feed.entries:
