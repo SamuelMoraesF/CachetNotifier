@@ -2,3 +2,4 @@ http://ufpr.dl.sourceforge.net/project/xmpppy/xmpppy/0.4.1/xmpppy-0.4.1.tar.gz
 dnspython
 html2text
 twython
+irc
