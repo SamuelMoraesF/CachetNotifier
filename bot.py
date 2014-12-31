@@ -145,7 +145,7 @@ try:
 			twitter.update_status(status=text)
 
 	# Function to check new feed itens
-	@sched.scheduled_job('interval', seconds=4, timezone=0)
+	@sched.scheduled_job('interval', seconds=config.get('cachet','interval'), timezone=0)
 	def check():
 		feed = feedparser.parse(config.get('cachet', 'url'))
 		for item in feed.entries:

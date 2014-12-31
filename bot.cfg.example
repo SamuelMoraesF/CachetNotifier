@@ -9,7 +9,8 @@ url: http://status.example.com/rss
 # Cache file to write notified items
 cache: tmp/notified.cache
 
-
+# Interval of checks (in seconds)
+interval: 30
 
 [logs]
 
