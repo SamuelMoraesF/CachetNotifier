@@ -1,0 +1,80 @@
+# Cachet Notifications System
+# Current supports XMPP, Twitter and Pushover
+
+[cachet]
+
+# Url of Cachet RSS
+url: http://status.example.com/rss
+
+# Cache file to write notified items
+cache: tmp/notified.cache
+
+
+
+[logs]
+
+# If false logs will saved in file, else, to stdout
+stdout: true
+
+# File to save logs
+filename: log/bot.log
+
+# LogLevel - CRITICAL, ERROR, WARNING, INFO and DEBUG
+level: DEBUG
+
+
+
+[xmpp]
+
+# Enable or disable XMPP notifications
+xmpp: false
+
+# JID of the receiver separated by comma
+to: receiver1@xmppserver.com,receiver2@xmppserver.com
+
+# JID of the user that will send the message
+user: sender@xmppserver.com
+
+# ... and the password
+password: password666
+
+
+
+[pushover]
+
+# Enable or disable pushover notifications
+pushover: false
+
+# Pushover App Token
+token: 111111111111111111111111111111
+
+# Pushover Users/Groups key separated by comma
+user: 1111111111111111111111111111,2222222222222222222222222222
+
+# Pushover priority - https://pushover.net/api#priority
+priority: 1
+
+# Pushover notification sound - https://pushover.net/api#sounds
+sound: siren
+
+
+
+[twitter]
+
+# Enable or disable twitter notifications
+twitter: true
+
+# Twitter Consumer Key (API Key)
+app_key: 444444444444444444444444444
+
+# Twitter Consumer Secret (API Secret)
+app_secret: 55555555555555555555555555555555555555555555555555
+
+# Twitter OAuth Access Token
+oauth_token: 6666666666-777777777777777777777777777777777777777
+
+# Twitter OAuth Access Token Secret
+oauth_token_secret: 888888888888888888888888888888888888888888888
+
+# Content to insert after the issue, at the end ot the tweet
+after: #Communityit-BR

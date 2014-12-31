@@ -1,0 +1,8 @@
+# Configuration File
+bot.cfg
+
+# Temporary folder
+tmp/*
+
+# Logs folder
+log/*
