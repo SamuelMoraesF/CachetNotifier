@@ -66,7 +66,7 @@ try:
 	def newitem(title, itemhash, content, status, updated):
 		
 		# Content HTML2Text
-		content=html2text.html2text(content).strip('\n')
+		content=html2text.html2text(content).replace("\n", " ").replace("   ", " ").replace("  ", " ")
 		
 		# Log
 		root.info('New item: %s - %s' %(title, itemhash))
@@ -125,11 +125,11 @@ try:
 		if config.getboolean('pushover', 'pushover'):
 			
 			# Title and message to send
-			title="New Issue: %s (%s)"%(title,status)
-			message="%s - %s"%(content, updated)
+			pushtitle="New Issue: %s (%s)"%(title,status)
+			pushmessage="%s - %s"%(content, updated)
 			
 			# POST args
-			args = {'token': config.get('pushover', 'token'), 'user': config.get('pushover', 'user'), 'title': title, 'message': message, 'priority': config.getint('pushover', 'priority'), 'sound': config.get('pushover', 'sound')}
+			args = {'token': config.get('pushover', 'token'), 'user': config.get('pushover', 'user'), 'title': pushtitle, 'message': pushmessage, 'priority': config.getint('pushover', 'priority'), 'sound': config.get('pushover', 'sound')}
 			
 			# Run POST
 			responsepush = requests.post("https://api.pushover.net/1/messages.json", params=args)
@@ -144,10 +144,10 @@ try:
 			twitter = Twython(config.get('twitter', 'app_key'), config.get('twitter', 'app_secret'), config.get('twitter', 'oauth_token'), config.get('twitter', 'oauth_token_secret'))
 			
 			# Tweet to publish
-			text="New Issue: %s (%s), %s %s"%(title,status,content,config.get('twitter', 'after'))
+			tweet="New Issue: %s (%s), %s %s"%(title,status,content,config.get('twitter', 'after'))
 			
 			# Publish Tweet
-			twitter.update_status(status=text)
+			twitter.update_status(status=tweet[:140])
 			
 		# If IRC is enabled
 		if config.getboolean('irc','irc'):
@@ -156,10 +156,11 @@ try:
 			root.debug('Sending IRC Notification')
 			
 			# Format of the message to send
-			desc="%s - %s"%(content, updated)
+			irctitle="New Issue: %s (%s)"%(title,status)
+			ircdesc="%s - %s"%(content, updated)
 			
 			# Call external IRC script to send ir message
-			call(['./irc-send.py', config.get('irc', 'server'), config.get('irc', 'port'), config.get('irc', 'nick'), config.get('irc', 'receivers'), '%s,%s'%(title, desc), config.get('irc', 'ssl')])
+			call(['./irc-send.py', config.get('irc', 'server'), config.get('irc', 'port'), config.get('irc', 'nick'), config.get('irc', 'receivers'), '%s,,%s'%(irctitle, ircdesc), config.get('irc', 'ssl')])
 			
 
 	# Function to check new feed itens
@@ -169,9 +170,10 @@ try:
 		for item in feed.entries:
 			itemhash = hashlib.md5(item.title + item.updated_at).hexdigest()
 			if not itemhash in open(config.get('cachet', 'cache')).read():
-				newitem(item.title, itemhash, item.message, item.status, item.updated_at)
 				with open(config.get('cachet', 'cache'), "ab") as myfile:
 					myfile.write(itemhash + "\n")
+				newitem(item.title, itemhash, item.message, item.status, item.updated_at)
+				
 	sched.start()
 
 # Application Killed

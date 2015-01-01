@@ -43,7 +43,7 @@ global target
 target = sys.argv[4].split(',')
 
 # Defining messages separated by comma
-messages = sys.argv[5].split(',')
+messages = sys.argv[5].split(',,')
 
 # If SSL is enabled
 if sys.argv[6] == "true":
