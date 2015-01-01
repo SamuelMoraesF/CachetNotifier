@@ -37,13 +37,26 @@ You can create your own XMPP server or use an [Public Server](http://xmpp.org/xm
 
 Now, change the ```xmpp``` option on the config file to ```true``` and modify the following settings:
 
-- ```to```:  The JID of the receivers separated by comma
-- ```user```: The JID of the bot
-- ```password```: Password of the bot JID
+* ```to```:  The JID of the receivers separated by comma
+* ```user```: The JID of the bot
+* ```password```: Password of the bot JID
 
 ![Notification on XMPP](http://i.imgur.com/ewg44pY.png)
 
 #### Pushover
+
+You can receive notifications on Android, iOS and Desktop with [Pushover](http://pushover.net).
+
+First, create an account(if you not already do it) and install the [client](https://pushover.net/clients) on your devices.
+
+To receive notifications, you need to [create an app](https://pushover.net/apps/build), the icon that you insert on this step will be used on the notifications.
+
+Now, you only need to insert these infos in the config file and change the ```pushover``` option to ```true```:
+
+* ```token```: The App Token
+* ```user```: You User Key
+* ```priority```: The priority of the notifications that you will receive([more info here](https://pushover.net/api#priority))
+* ```sound```: The sound of the notifications([more info here](https://pushover.net/api#sounds))
 
 ![Notification on Pushover](http://i.imgur.com/InBC9Bx.png)
 
