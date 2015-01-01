@@ -62,6 +62,16 @@ Now, you only need to insert these infos in the config file and change the ```pu
 
 #### Twitter
 
+To publish the notifications on Twitter you will need to [create an app](https://apps.twitter.com/app/new) and generate an Access Token.
+
+Set the ```twitter``` option on the config file to ```true``` and insert these data on the config file:
+
+* ```app_key```: App Consumer Key (API Key)
+* ```app_secret```: App Consumer Secret (API Secret)
+* ```oauth_token```: Twitter OAuth Access Token
+* ```oauth_token_secret```: Twitter OAuth Access Token Secret
+* ```after```: Text(or hashtag) to insert after the issue text(at the end of the tweet)
+
 ![Notification on Twitter](http://i.imgur.com/XHNhQT6.png)
 
 #### IRC
