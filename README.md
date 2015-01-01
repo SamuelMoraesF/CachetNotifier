@@ -86,3 +86,6 @@ To receive notifications on IRC you only need to modify the config file:
 
 ![Notification on IRC](http://i.imgur.com/MmwH4kN.png)
 
+# More
+
+* [CachetGnome3](https://github.com/SamuelMoraesF/CachetGnome3) - Receive Cachet notifications on Gnome3
