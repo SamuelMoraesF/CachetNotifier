@@ -76,5 +76,13 @@ Set the ```twitter``` option on the config file to ```true``` and insert these d
 
 #### IRC
 
+To receive notifications on IRC you only need to modify the config file:
+
+* ```server```: The IRC server address
+* ```port```: The IRC server port
+* ```nick```: Nick that the bot will use
+* ```receivers```: Nicks and Channels to send the notification(separated by comma)
+* ```ssl```: Enable or Disable SSL connection
+
 ![Notification on IRC](http://i.imgur.com/MmwH4kN.png)
 
