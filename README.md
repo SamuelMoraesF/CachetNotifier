@@ -1,5 +1,5 @@
 # Cachet Notification System
-### Supports Pushover, Twitter, IRC, and XMPP!
+Supports Pushover, Twitter, IRC, and XMPP!
 
 # Install
 
