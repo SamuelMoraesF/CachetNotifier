@@ -100,7 +100,7 @@ I reccomend enable log to file if you will use this method.
 
 To kill the bot, you need to run ```screen -r cachetbot``` and press CTRL+C.
 
-# Running on Heroku
+# Deploying to Heroku
 
 You need to create the file ```Procfile``` with the following content:
 
