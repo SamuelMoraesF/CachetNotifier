@@ -86,6 +86,34 @@ To receive notifications on IRC you only need to modify the config file:
 
 ![Notification on IRC](http://i.imgur.com/MmwH4kN.png)
 
+# Running in background
+
+You can keep this running with ```screen``` and ```crontab```.
+
+Run ```crontab -e````and add this line:
+
+```@reboot screen -d -S cachetbot -m /usr/bin/python2.7 /path/to/cachetnotify/bot.py```
+
+You only need to change ```/path/to/cachetnotify/``` to the path where CachetNotify are.
+
+I reccomend enable log to file if you will use this method.
+
+To kill the bot, you need to run ```screen -r cachetbot``` and press CTRL+C.
+
+# Running on Heroku
+
+You need to create the file ```Procfile``` with the following content:
+
+```worker: python bot.py```
+
+Edit the configuration file(you will need to create manually the cache file and set the logging to STDOUT).
+
+Remove the ```.gitignore``` file and deploy to heroku.
+
+To read the logs you just need to run:
+
+```heroku logs -t -p worker```
+
 # More
 
 * [CachetGnome3](https://github.com/SamuelMoraesF/CachetGnome3) - Receive Cachet notifications on Gnome3
