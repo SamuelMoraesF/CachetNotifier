@@ -33,6 +33,14 @@ Now, you need to configure the protocols to receive notifications
 
 #### XMPP
 
+You can create your own XMPP server or use an [Public Server](http://xmpp.org/xmpp-software/servers/). You need to create an User for the bot(and for you if you not have one) and change the bot profile(optional, you can do it with an [XMPP client](http://xmpp.org/xmpp-software/clients/), change the bot nick/photo/info and add he as your friend)
+
+Now, change the ```xmpp``` option on the config file to ```true``` and modify the following settings:
+
+- ```to```:  The JID of the receivers separated by comma
+- ```user```: The JID of the bot
+- ```password```: Password of the bot JID
+
 ![Notification on XMPP](http://i.imgur.com/ewg44pY.png)
 
 #### Pushover
