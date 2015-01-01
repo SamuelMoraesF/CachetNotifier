@@ -3,3 +3,5 @@ dnspython
 html2text
 twython
 irc
+feedparser
+apscheduler
